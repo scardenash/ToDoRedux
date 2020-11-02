@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
+
+import Todos from './components/Todos';
+import AddTodo from './components/AddTodo';
+
+//MaterialUI
+import Container from '@material-ui/core/Container';
+
+//Main
 import './App.css';
 
-function App() {
+///Easy Peazy
+import model from './model';
+import { StoreProvider, createStore } from 'easy-peasy';
+
+//Init Store
+const store = createStore(model);
+
+//App
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StoreProvider store={store}>
+      <Container maxWidth='sm' style={mainStyle}>
+        <Todos />
+        <AddTodo />
+      </Container>
+    </StoreProvider>
   );
-}
+};
 
 export default App;
+
+///Styling
+const mainStyle = {
+  boxShadow: '-3px 3px 5px rgba(104, 104, 104, 0.8)',
+  marginTop: '1rem',
+  paddingBottom: '1.5rem',
+  paddingTop: '1rem',
+  backgroundColor: '#fff',
+};
